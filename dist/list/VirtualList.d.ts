@@ -1,0 +1,44 @@
+/**
+ * @fileoverview VirtualList: a scroll box over a long list of fixed-pitch
+ * rows that draws only the rows in view plus an overscan margin. Each row
+ * says its place in the whole set.
+ *
+ * @module packages/react/src/list/VirtualList
+ * @version 1.0.0
+ * @author Typeir
+ * @since 0.2.0
+ */
+import { type VirtualRange } from '@arkhe/core';
+import { type JSX, type ReactNode } from 'react';
+/**
+ * Props of VirtualList.
+ *
+ * @interface VirtualListProps
+ * @template T
+ * @property {readonly T[]} items - Rows.
+ * @property {number} rowPitch - Row height in rem.
+ * @property {(item: T, index: number) => ReactNode} renderItem - Row body.
+ * @property {string} [label] - Accessible name of the list.
+ * @property {string} [maxHeight] - CSS height past which the list scrolls. Defaults to `37.5rem`.
+ * @property {number} [overscan] - Rows drawn past each edge of the view. Defaults to `VIRTUAL_OVERSCAN`.
+ * @property {(item: T, index: number) => string | number} [getKey] - Stable row key. Defaults to the index.
+ * @property {(visible: VirtualRange) => void} [onRange] - Rows in view changed, as to load more near the end.
+ */
+export interface VirtualListProps<T> {
+    readonly items: readonly T[];
+    readonly rowPitch: number;
+    readonly renderItem: (item: T, index: number) => ReactNode;
+    readonly label?: string;
+    readonly maxHeight?: string;
+    readonly overscan?: number;
+    readonly getKey?: (item: T, index: number) => string | number;
+    readonly onRange?: (visible: VirtualRange) => void;
+}
+/**
+ * Renders the rows in view of a long list.
+ *
+ * @component
+ * @param {VirtualListProps<T>} props - Rows, pitch, row body.
+ * @returns {JSX.Element} List.
+ */
+export declare const VirtualList: <T>({ items, rowPitch, renderItem, label, maxHeight, overscan, getKey, onRange, }: VirtualListProps<T>) => JSX.Element;
